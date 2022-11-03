@@ -16,16 +16,18 @@ export default function ClassHome({ data }) {
                     { availableCourses.sections && availableCourses.sections.map( courseSections => {
                       return (
                         <div key={ courseSections.crn }>
-                          { courseSections.crn }
-                          { courseSections.cap }
-                          { courseSections.rem }
                           { courseSections.timeslots && courseSections.timeslots.map( courseInstructor => {
                             return (
                               <div key={ courseSections.crn }>
-                                { courseInstructor.instructor }
+                                <span>Professor: </span>{ courseInstructor.instructor }
+                                <br></br>
                               </div>
                             )
                           }) }
+                          <span>CRN: </span>{ courseSections.crn }
+                          <br></br>
+                          <span>Seats Available: </span>{ courseSections.rem }<span>/</span>{ courseSections.cap }
+                          <br></br>
                         </div>
                       )
                     }) }
