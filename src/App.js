@@ -1,8 +1,6 @@
 import React, { useState } from "react"
 import Header from "./Components/Header"
 import NavBar from "./Components/NavBar"
-// import HomeBody from "./Components/HomeBody"
-import './Components/HomeBody.css'
 import About from "./Components/About"
 import ClassHome from "./Components/ClassHome"
 import ClassResults from "./Components/ClassResults"
@@ -10,19 +8,22 @@ import ProfHome from "./Components/ProfHome"
 import ProfResults from "./Components/ProfResults"
 import Footer from "./Components/Footer"
 import Contact from "./Components/Contact"
-import BPLLogo from "./Images/logo.png"
-import GitHubLogo from "./Images/github-logo.png"
 import RMPData from './Data/rmp.json'
 import CourseData from './Data/courses.json'
 import CourseProfs from './Data/courseProfs.json'
+import GitHubLogo from "./Images/github-logo.png"
+import BPLLogo from "./Images/logo.png"
+import './App.css'
 import { Route, Routes, useResolvedPath, useMatch, Link} from 'react-router-dom'
 
+
 function App() {
+  document.title = "Best Professor List"
   return (
     <div className="App">
       {/* Taking all the components and displaying the appropriate ones */}
       {/* depending on the current page */}
-      <Header bplLogo={ BPLLogo }/>
+      <Header bplLogo={ BPLLogo } />
       <NavBar />
       <div className="container">
         <Routes>
@@ -49,20 +50,25 @@ function CustomLink({ to, children, ...props }) {
   return <Link id='search-btn' className={isActive ? "active" : ""} to={to} {...props}>{children}</Link>
 }
 
-
 function HomeBody() {
   const [message, setMessage] = useState('');
   const handleChange = event => {
     setMessage(event.target.value);
     console.log('value is:', event.target.value);
   }
-  return (
 
-    <div>
-      <input className="professor-search" onChange = {handleChange} type="text" placeholder="Search Professors...." />
-      <CustomLink to = "/profresults"state={{data: RMPData, professor: {message}}}>Search</CustomLink>
-      <input className="class-search" onChange = {handleChange} type="text" placeholder="Search Classes...." />
-      <CustomLink to = "/classresults"state={{data: RMPData, courseData: {CourseProfs}, professor: {message}}}>Search</CustomLink>
+  // const handleEnter = event => {
+  //   if (event.key === 'Enter') {
+
+  //   }
+  // }
+
+  return (
+    <div id = "search_bars">
+      <input id = "prof_search" className="professor-search" onChange = {handleChange} /* onKeyDown={handleEnter} */ type="text" placeholder="Search Professors...." />
+      <CustomLink id = "search_button1" to = "/profresults"state={{data: RMPData, professor: {message}}}>Search</CustomLink>
+      <input id = "class_search" className="class-search" maxlength = "8" onChange = {handleChange} onSubmit type="text" placeholder="Search Classes...." />
+      <CustomLink id = "search_button2" to = "/classresults"state={{data: RMPData, courseData: {CourseProfs}, professor: {message}}}>Search</CustomLink>
     </div>
   )
 }
